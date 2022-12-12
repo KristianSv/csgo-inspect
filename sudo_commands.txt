@@ -1,0 +1,10 @@
+
+
+#RESTART POSTGRES
+sudo systemctl restart postgresql
+
+#GET POSTGRES PID
+sudo netstat -lpn |grep :5432
+
+#POSTGRES CONFIG FILE
+sudo vi /etc/postgresql/14/main/pg_hba.conf

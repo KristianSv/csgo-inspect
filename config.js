@@ -58,7 +58,7 @@ module.exports = {
     // Amount of seconds to wait between updating game files (0 = No Interval Updates)
     'game_files_update_interval': 3600,
     // Postgres connection string to store results in (ex. postgres://user:pass@127.0.0.1:5432/postgres?sslmode=disable)
-    'database_url': 'postgres://postgres:postgres@127.0.0.1:5432/floats?sslmode=disable',
+    'database_url': 'postgres://postgres:Password123@127.0.0.1:5432/floats?sslmode=disable',
     // OPTIONAL: Enable bulk inserts, may improve performance with many requests
     'enable_bulk_inserts': false,
     // OPTIONAL: Key by the caller to allow inserting price information, required to use the feature
