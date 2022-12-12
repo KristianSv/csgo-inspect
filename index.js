@@ -71,18 +71,23 @@ const allowedRegexOrigins = CONFIG.allowed_regex_origins.map((origin) => new Reg
 
 async function handleJob(job) {
     // See which items have already been cached
-    const itemData = await postgres.getItemData(job.getRemainingLinks().map(e => e.link));
-    for (let item of itemData) {
-        const link = job.getLink(item.a);
+    try {
+        const itemData = await postgres.getItemData(job.getRemainingLinks().map(e => e.link));
+        for (let item of itemData) {
+            const link = job.getLink(item.a);
 
-        if (!item.price && link.price) {
-            postgres.updateItemPrice(item.a, link.price);
+            if (!item.price && link.price) {
+                postgres.updateItemPrice(item.a, link.price);
+            }
+
+            gameData.addAdditionalItemProperties(item);
+            item = utils.removeNullValues(item);
+
+            job.setResponse(item.a, item);
         }
-
-        gameData.addAdditionalItemProperties(item);
-        item = utils.removeNullValues(item);
-
-        job.setResponse(item.a, item);
+    }
+    catch (ex) {
+        console.log(ex);
     }
 
     if (!botController.hasBotOnline()) {
